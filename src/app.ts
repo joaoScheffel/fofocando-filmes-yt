@@ -1,8 +1,10 @@
+import 'express-async-errors'
 import express, {Express} from "express"
 import morgan from 'morgan'
 import Config from "./config/config";
 import loggerUtils from "./utils/logger.utils";
 import {DbConfig} from "./config/db.config";
+import {RequestErrorMiddleware} from "./middlewares/request-error.middleware";
 
 class App {
     private _express: Express
@@ -16,6 +18,9 @@ class App {
 
         this.middlewares()
         this.startDb()
+
+        //This middleware must be before appListen
+        this._express.use(new RequestErrorMiddleware().validateErrors)
         this.appListen()
     }
 
