@@ -5,6 +5,7 @@ import Config from "./config/config";
 import loggerUtils from "./utils/logger.utils";
 import {DbConfig} from "./config/db.config";
 import {RequestErrorMiddleware} from "./middlewares/request-error.middleware";
+import Routes from "./routes";
 
 class App {
     private _express: Express
@@ -18,6 +19,7 @@ class App {
 
         this.middlewares()
         this.startDb()
+        this.startRoutes()
 
         //This middleware must be before appListen
         this._express.use(new RequestErrorMiddleware().validateErrors)
@@ -35,7 +37,9 @@ class App {
     }
 
     private startRoutes(): void {
-        //TODO
+        loggerUtils.debug('Setting routes.')
+        this._express.use(new Routes().mainConfiguration)
+        loggerUtils.info('Successfully configured routes!')
     }
 
     private appListen(): void {
