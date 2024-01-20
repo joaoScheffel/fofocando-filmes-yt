@@ -2,6 +2,7 @@ import express, {Express} from "express"
 import morgan from 'morgan'
 import Config from "./config/config";
 import loggerUtils from "./utils/logger.utils";
+import {DbConfig} from "./config/db.config";
 
 class App {
     private _express: Express
@@ -14,6 +15,7 @@ class App {
         Config.load()
 
         this.middlewares()
+        this.startDb()
         this.appListen()
     }
 
@@ -24,7 +26,7 @@ class App {
     }
 
     private startDb(): void {
-        //TODO
+        new DbConfig()
     }
 
     private startRoutes(): void {
