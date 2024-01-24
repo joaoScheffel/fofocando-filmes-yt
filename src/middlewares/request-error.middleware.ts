@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from "express"
 import {RestError} from "../errors/rest-error";
 import Config from "../config/config";
+import loggerUtils from "../utils/logger.utils";
 
 export class RequestErrorMiddleware {
     async validateErrors(error: Error & Partial<RestError>, req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -22,14 +23,7 @@ export class RequestErrorMiddleware {
 
             return
         } else {
-            res.status(statusCode).json({
-                message,
-                name,
-                stack: isDevelopment? stack : null,
-                origin
-            })
-
-            return
+            loggerUtils.error(`Error after headersSent, error log: ${error}`)
         }
     }
 }

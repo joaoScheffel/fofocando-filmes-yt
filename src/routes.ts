@@ -1,6 +1,5 @@
-import {Router, Request, Response} from "express"
-import {BadRequestError} from "./errors/bad-request-error";
-import {ServerError} from "./errors/server-error";
+import {Router} from "express"
+import AuthController from "./controllers/auth.controller";
 
 export default class Routes {
     private routes: Router = Router()
@@ -12,8 +11,6 @@ export default class Routes {
     }
 
     private authRoutes() {
-        this.routes.get('/auth', (req: Request, res: Response) => {
-            return res.status(200).json({"message": "aaa"})
-        })
+        this.routes.get('/auth/generate-auth', new AuthController().generateAuthUrl)
     }
 }
