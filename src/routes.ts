@@ -12,5 +12,6 @@ export default class Routes {
 
     private authRoutes() {
         this.routes.get('/auth/generate-auth', new AuthController().generateAuthUrl)
+        this.routes.get('/auth/redirect-google', new AuthController().redirectGoogleAuth)
     }
 }

@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 4">
-      <change afterPath="$PROJECT_DIR$/src/controllers/auth.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/google-api.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/string.utils.ts" afterDir="false" />
+    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 5">
+      <change afterPath="$PROJECT_DIR$/src/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/google-api.types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middlewares/request-error.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/request-error.middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/db.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/auth.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/google-api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/google-api.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,7 @@
       <workItem from="1705764015423" duration="4408000" />
       <workItem from="1705940216468" duration="605000" />
       <workItem from="1706022350175" duration="609000" />
-      <workItem from="1706053620116" duration="2595000" />
+      <workItem from="1706053620116" duration="5440000" />
     </task>
     <task id="LOCAL-00001" summary="feat: conteúdo video 1">
       <created>1705709730718</created>
@@ -113,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705765503809</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: conteúdo video 5">
+      <created>1706056469320</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706056469320</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +146,7 @@
     <MESSAGE value="feat: conteúdo video 2" />
     <MESSAGE value="feat: conteúdo video 3" />
     <MESSAGE value="feat: conteúdo video 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 4" />
+    <MESSAGE value="feat: conteúdo video 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 5" />
   </component>
 </project>

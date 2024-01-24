@@ -9,11 +9,9 @@ export class DbConfig {
         Config.load()
 
         this.uri = Config.DATABASE_URL
-
-        this.mainConfiguration()
     }
 
-    private async mainConfiguration(): Promise<void> {
+    async mainConfiguration(): Promise<void> {
         loggerUtils.debug('Starting db configuration.')
 
         try {

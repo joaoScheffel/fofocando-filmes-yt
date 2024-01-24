@@ -14,11 +14,11 @@ class App {
         this._express = express()
     }
 
-    mainConfiguration(): void {
+    async mainConfiguration(): Promise<void> {
         Config.load()
 
         this.middlewares()
-        this.startDb()
+        await this.startDb()
         this.startRoutes()
 
         //This middleware must be before appListen
@@ -32,8 +32,8 @@ class App {
         this._express.use(express.urlencoded({extended: true}))
     }
 
-    private startDb(): void {
-        new DbConfig()
+    private async startDb(): Promise<void> {
+        await new DbConfig().mainConfiguration()
     }
 
     private startRoutes(): void {
