@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 5">
-      <change afterPath="$PROJECT_DIR$/src/services/auth.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/google-api.types.ts" afterDir="false" />
+    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/db.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/google-api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/google-api.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +75,9 @@
       <workItem from="1705764015423" duration="4408000" />
       <workItem from="1705940216468" duration="605000" />
       <workItem from="1706022350175" duration="609000" />
-      <workItem from="1706053620116" duration="5440000" />
+      <workItem from="1706053620116" duration="5542000" />
+      <workItem from="1706060891732" duration="114000" />
+      <workItem from="1706231099975" duration="596000" />
     </task>
     <task id="LOCAL-00001" summary="feat: conteúdo video 1">
       <created>1705709730718</created>
@@ -119,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706056469320</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: conteúdo video 6">
+      <created>1706059350701</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706059350701</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,12 +143,54 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="3d6e6182-31c5-4b48-83a6-4505e6bb8fde" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="3d6e6182-31c5-4b48-83a6-4505e6bb8fde">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: conteúdo video 1" />
     <MESSAGE value="feat: conteúdo video 2" />
     <MESSAGE value="feat: conteúdo video 3" />
     <MESSAGE value="feat: conteúdo video 4" />
     <MESSAGE value="feat: conteúdo video 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 5" />
+    <MESSAGE value="feat: conteúdo video 6" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 6" />
   </component>
 </project>

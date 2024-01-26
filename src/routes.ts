@@ -1,5 +1,5 @@
 import {Router} from "express"
-import AuthController from "./controllers/auth.controller";
+import {authController} from "./utils/factory";
 
 export default class Routes {
     private routes: Router = Router()
@@ -11,7 +11,7 @@ export default class Routes {
     }
 
     private authRoutes() {
-        this.routes.get('/auth/generate-auth', new AuthController().generateAuthUrl)
-        this.routes.get('/auth/redirect-google', new AuthController().redirectGoogleAuth)
+        this.routes.get('/auth/generate-auth', authController.generateAuthUrl.bind(authController))
+        this.routes.get('/auth/redirect-google', authController.redirectGoogleAuth.bind(authController))
     }
 }

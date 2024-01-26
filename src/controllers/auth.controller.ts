@@ -1,11 +1,10 @@
 import {Request, Response} from "express";
-import GoogleApiService from "../services/google-api.service";
-import {TokenPayload} from "google-auth-library";
-import AuthService from "../services/auth.service";
+import {authService, googleApiService} from "../utils/factory";
+import {IUser} from "../types/user.types";
 
 export default class AuthController {
     async generateAuthUrl(req: Request, res: Response) {
-        const authUrl: string = new GoogleApiService().generateAuthUrl()
+        const authUrl: string = googleApiService.generateAuthUrl()
 
         return res.status(200).json({
             message: "Successfully generated auth url",
@@ -14,11 +13,11 @@ export default class AuthController {
     }
 
     async redirectGoogleAuth(req: Request, res: Response) {
-        const payload: TokenPayload = await new AuthService().validateGoogleAuthRedirect(req)
+        const user: IUser = await authService.validateGoogleAuthRedirect(req)
 
         return res.status(200).json({
             message: "Successfully find user payload",
-            payload
+            user
         })
     }
 }
