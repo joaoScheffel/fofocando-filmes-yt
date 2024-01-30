@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 7">
-      <change afterPath="$PROJECT_DIR$/src/repositories/auth-token.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/auth-token.types.ts" afterDir="false" />
+    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/auth.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/factory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/factory.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +80,7 @@
       <workItem from="1706053620116" duration="5542000" />
       <workItem from="1706060891732" duration="114000" />
       <workItem from="1706231099975" duration="4248000" />
-      <workItem from="1706571028175" duration="2133000" />
+      <workItem from="1706571028175" duration="2779000" />
     </task>
     <task id="LOCAL-00001" summary="feat: conteúdo video 1">
       <created>1705709730718</created>
@@ -134,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706235617279</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: conteúdo video 8">
+      <created>1706574539326</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706574539326</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,6 +209,7 @@
     <MESSAGE value="feat: conteúdo video 5" />
     <MESSAGE value="feat: conteúdo video 6" />
     <MESSAGE value="feat: conteúdo video 7" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 7" />
+    <MESSAGE value="feat: conteúdo video 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 8" />
   </component>
 </project>

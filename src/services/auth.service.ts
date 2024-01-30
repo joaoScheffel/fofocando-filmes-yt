@@ -33,18 +33,14 @@ export default class AuthService {
             throw new ServerError('AuthService.validateGoogleAuthRedirect at !user')
         }
 
-        const accessToken: string = tokenResponse?.tokens?.access_token
-
-        if (!accessToken) {
-            throw new UnauthorizedError('Usuário não possui access token')
-        }
-
         const authToken: IAuthToken = {
             ...tokenResponse?.tokens,
             userUuid: user?.userUuid
         }
 
         await authTokenRepository.upsertAuthToken(authToken)
+
+        const accessToken: string = tokenResponse?.tokens?.id_token
 
         return {user, accessToken}
     }
