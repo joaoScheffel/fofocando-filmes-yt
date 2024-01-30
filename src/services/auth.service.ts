@@ -4,12 +4,13 @@ import {BadRequestError} from "../errors/bad-request-error";
 import {GetTokenResponse} from "google-auth-library/build/src/auth/oauth2client";
 import {UnauthorizedError} from "../errors/unauthorized-error";
 import {LoginTicket, TokenPayload} from "google-auth-library";
-import {googleApiService, userService} from "../utils/factory";
+import {authTokenRepository, googleApiService, userService} from "../utils/factory";
 import {IUser} from "../types/user.types";
 import {ServerError} from "../errors/server-error";
+import {IAuthToken} from "../types/auth-token.types";
 
 export default class AuthService {
-    async validateGoogleAuthRedirect(req: Request): Promise<IUser> {
+    async validateGoogleAuthRedirect(req: Request): Promise<{user: IUser, accessToken: string}> {
         const redirectQuery: IAuthQueryParams = req.query
 
         if (!redirectQuery.authuser || !redirectQuery.scope || !redirectQuery.code || !redirectQuery.prompt) {
@@ -32,6 +33,19 @@ export default class AuthService {
             throw new ServerError('AuthService.validateGoogleAuthRedirect at !user')
         }
 
-        return user
+        const accessToken: string = tokenResponse?.tokens?.access_token
+
+        if (!accessToken) {
+            throw new UnauthorizedError('Usuário não possui access token')
+        }
+
+        const authToken: IAuthToken = {
+            ...tokenResponse?.tokens,
+            userUuid: user?.userUuid
+        }
+
+        await authTokenRepository.upsertAuthToken(authToken)
+
+        return {user, accessToken}
     }
 }

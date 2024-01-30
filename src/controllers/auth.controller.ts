@@ -1,6 +1,5 @@
 import {Request, Response} from "express";
 import {authService, googleApiService} from "../utils/factory";
-import {IUser} from "../types/user.types";
 
 export default class AuthController {
     async generateAuthUrl(req: Request, res: Response) {
@@ -13,11 +12,12 @@ export default class AuthController {
     }
 
     async redirectGoogleAuth(req: Request, res: Response) {
-        const user: IUser = await authService.validateGoogleAuthRedirect(req)
+        const {user, accessToken} = await authService.validateGoogleAuthRedirect(req)
 
         return res.status(200).json({
-            message: "Successfully find user payload",
-            user
+            message: "Successfully logged in user!",
+            user,
+            accessToken
         })
     }
 }
