@@ -5,6 +5,7 @@ import {UserRepository} from "../repositories/user.repository";
 import UserService from "../services/user.service";
 import Config from "../config/config";
 import {AuthTokenRepository} from "../repositories/auth-token.repository";
+import AuthMiddleware from "../middlewares/auth.middleware";
 
 Config.load()
 
@@ -15,6 +16,8 @@ export const userService: UserService = new UserService()
 export const authTokenRepository: AuthTokenRepository = new AuthTokenRepository()
 
 export const googleApiService: GoogleApiService = new GoogleApiService()
+
+export const authMiddleware: AuthMiddleware = new AuthMiddleware()
 
 export const authService: AuthService = new AuthService()
 

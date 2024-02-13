@@ -56,16 +56,24 @@ export default class GoogleApiService {
             throw new ServerError('GoogleApiService.getPayloadFromTokenResponse at !idToken')
         }
 
+        return this.getTicketByIdToken(idToken)
+    }
+
+    async getTicketByIdToken(idToken: string): Promise<LoginTicket> {
+        if (!idToken) {
+            throw new ServerError('GoogleApiService.getTicketByIdToken at !idToken')
+        }
+
         let ticket: LoginTicket
 
         try {
             ticket = await this.oauthClient.verifyIdToken({idToken, audience: this.oauthClient._clientId})
         } catch (e) {
-            throw new UnauthorizedError('Invalid Google id token')
-        }
-
-        if (!ticket) {
-            throw new ServerError('GoogleApiService.getPayloadFromTokenResponse at !ticket')
+            if (e?.message?.includes('Token used too late')) {
+                throw new UnauthorizedError('Expired access token')
+            } else {
+                throw new UnauthorizedError('Invalid access token')
+            }
         }
 
         return ticket
