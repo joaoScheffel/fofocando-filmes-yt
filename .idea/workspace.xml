@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 8">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/auth.service.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2bCCDUgK1hYy7dbhIr18aub2XM7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;stage&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Aires/projetos/fofocando-filmes-yt&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Aires\\projetos\\fofocando-filmes-yt\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Aires\projetos\fofocando-filmes-yt" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Aires\projetos\fofocando-filmes-yt" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="" />
+      <created>1705709553602</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705709553602</updated>
+      <workItem from="1705709555809" duration="2200000" />
+      <workItem from="1705764015423" duration="4408000" />
+      <workItem from="1705940216468" duration="605000" />
+      <workItem from="1706022350175" duration="609000" />
+      <workItem from="1706053620116" duration="5542000" />
+      <workItem from="1706060891732" duration="114000" />
+      <workItem from="1706231099975" duration="4248000" />
+      <workItem from="1706571028175" duration="2779000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: conteúdo video 1">
+      <created>1705709730718</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1705709730718</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: conteúdo video 2">
+      <created>1705710629682</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1705710629682</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: conteúdo video 3">
+      <created>1705711824545</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705711824545</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: conteúdo video 4">
+      <created>1705765503809</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705765503809</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: conteúdo video 5">
+      <created>1706056469320</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706056469320</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: conteúdo video 6">
+      <created>1706059350701</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706059350701</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: conteúdo video 7">
+      <created>1706235617279</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706235617279</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: conteúdo video 8">
+      <created>1706574539326</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706574539326</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/node_modules/sift/src/core.js" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/utils.js" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/core.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/utils.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/core.js.map" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/index.js.map" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/utils.js.map" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/operations.js" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/operations.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/sift/src/operations.js.map" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="3d6e6182-31c5-4b48-83a6-4505e6bb8fde" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="3d6e6182-31c5-4b48-83a6-4505e6bb8fde">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: conteúdo video 1" />
+    <MESSAGE value="feat: conteúdo video 2" />
+    <MESSAGE value="feat: conteúdo video 3" />
+    <MESSAGE value="feat: conteúdo video 4" />
+    <MESSAGE value="feat: conteúdo video 5" />
+    <MESSAGE value="feat: conteúdo video 6" />
+    <MESSAGE value="feat: conteúdo video 7" />
+    <MESSAGE value="feat: conteúdo video 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: conteúdo video 8" />
+  </component>
+</project>
