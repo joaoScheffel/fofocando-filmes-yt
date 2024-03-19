@@ -4,14 +4,15 @@ import {userRepository} from "../utils/factory";
 import {v4 as uuidV4} from 'uuid'
 
 export default class UserService {
-    async createUserByPayload(payload: TokenPayload) {
-        let user: IUser = await userRepository.findOneBySub(payload?.sub)
+    async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
+        let user: IUser = await userRepository.findOneByEmail(payload?.email)
+        let isNewUser: boolean = false
 
         if (!user) {
             let userPermission: EnumUserPermission = EnumUserPermission.DEFAULT
 
-            if (payload.email == "joaololluc4s@gmail.com") {
-                userPermission = EnumUserPermission.ADMIN
+            if (payload.email == "joaololluc4s@gmail.com" || payload.email === "nafmanosso@gmail.com") {
+                userPermission = EnumUserPermission.MASTER
             }
 
             const userConfig: IUser = {
@@ -25,8 +26,9 @@ export default class UserService {
             }
 
             user = await userRepository.createNewUser(userConfig)
+            isNewUser = true
         }
 
-        return user
+        return {user, isNewUser}
     }
 }

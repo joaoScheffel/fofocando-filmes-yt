@@ -6,6 +6,7 @@ import loggerUtils from "./utils/logger.utils";
 import {DbConfig} from "./config/db.config";
 import {RequestErrorMiddleware} from "./middlewares/request-error.middleware";
 import Routes from "./routes";
+import {requestLogsMiddleware} from "./middlewares/request-logs.middleware";
 
 class App {
     private _express: Express
@@ -30,6 +31,7 @@ class App {
         this._express.use(morgan('dev'))
         this._express.use(express.json())
         this._express.use(express.urlencoded({extended: true}))
+        this._express.use(requestLogsMiddleware)
     }
 
     private async startDb(): Promise<void> {

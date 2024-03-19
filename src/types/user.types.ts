@@ -15,5 +15,6 @@ export interface IUser extends ITimesTamps {
 
 export enum EnumUserPermission {
     DEFAULT = "DEFAULT",
-    ADMIN = "ADMIN"
+    ADMIN = "ADMIN",
+    MASTER = "MASTER"
 }

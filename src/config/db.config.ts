@@ -8,7 +8,7 @@ export class DbConfig {
     constructor() {
         Config.load()
 
-        this.uri = Config.DATABASE_URL
+        this.uri = Config.DATABASE_URL + 'coding'
     }
 
     async mainConfiguration(): Promise<void> {
