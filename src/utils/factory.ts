@@ -6,8 +6,11 @@ import UserService from "../services/user.service";
 import Config from "../config/config";
 import {AuthTokenRepository} from "../repositories/auth-token.repository";
 import AuthMiddleware from "../middlewares/auth.middleware";
+import {RequestLogRepository} from "../repositories/request-log.repository";
 
 Config.load()
+
+export const requestLogRepository: RequestLogRepository = new RequestLogRepository()
 
 export const userRepository: UserRepository = new UserRepository()
 

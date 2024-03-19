@@ -8,6 +8,7 @@ import {authTokenRepository, googleApiService, userService} from "../utils/facto
 import {IUser} from "../types/user.types";
 import {ServerError} from "../errors/server-error";
 import {IAuthToken} from "../types/auth-token.types";
+import {EnumRequestEvent} from "../types/request/request-event.types";
 
 export default class AuthService {
     async validateGoogleAuthRedirect(req: Request): Promise<{user: IUser, accessToken: string}> {
@@ -27,10 +28,14 @@ export default class AuthService {
 
         const payload: TokenPayload = googleApiService.getPayloadFromTicket(ticket)
 
-        const user: IUser = await userService.createUserByPayload(payload)
+        const {user, isNewUser} = await userService.createUserByPayload(payload)
 
         if (!user) {
             throw new ServerError('AuthService.validateGoogleAuthRedirect at !user')
+        }
+
+        if (isNewUser) {
+            req["requestUtils"].event = EnumRequestEvent.REGISTER_USER
         }
 
         const authToken: IAuthToken = {

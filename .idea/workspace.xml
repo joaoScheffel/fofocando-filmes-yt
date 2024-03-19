@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="feat: conteúdo video 8">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/auth.controller.ts" afterDir="false" />
+    <list default="true" id="8b0cf6e7-24bd-46e5-a769-058bd18f6e8a" name="Changes" comment="fix: conteúdo video 9">
+      <change afterPath="$PROJECT_DIR$/src/middlewares/request-log.middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repositories/request-log.repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/request/request-endpoint.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/request/request-event.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/request/request-log.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/request/request-method.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/request-log.utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositories/user.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/repositories/user.repository.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/factory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/factory.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
