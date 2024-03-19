@@ -4,8 +4,9 @@ import {userRepository} from "../utils/factory";
 import {v4 as uuidV4} from 'uuid'
 
 export default class UserService {
-    async createUserByPayload(payload: TokenPayload) {
+    async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
         let user: IUser = await userRepository.findOneBySub(payload?.sub)
+        let isNewUser: boolean = false
 
         if (!user) {
             let userPermission: EnumUserPermission = EnumUserPermission.DEFAULT
@@ -25,8 +26,9 @@ export default class UserService {
             }
 
             user = await userRepository.createNewUser(userConfig)
+            isNewUser = true
         }
 
-        return user
+        return {user, isNewUser}
     }
 }

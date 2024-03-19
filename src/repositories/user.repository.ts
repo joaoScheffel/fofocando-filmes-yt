@@ -19,7 +19,7 @@ const userSchema: Schema = new Schema<IUser>({
         unique: true
     },
     photoUrl: {
-        type: String
+        type: String,
     },
     typePermission: {
         type: String,
