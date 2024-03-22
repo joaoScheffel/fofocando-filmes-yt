@@ -1,7 +1,8 @@
 import {Request, Response, NextFunction} from "express"
-import {RestError} from "../errors/rest-error";
-import Config from "../config/config";
-import loggerUtils from "../utils/logger.utils";
+import {RestError} from "../../errors/rest-error";
+import Config from "../../config/config";
+import loggerUtils from "../../utils/logger.utils";
+
 
 export class RequestErrorMiddleware {
     async validateErrors(error: Error & Partial<RestError>, req: Request, res: Response, next: NextFunction): Promise<void> {
