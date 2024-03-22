@@ -1,7 +1,8 @@
 import {TokenPayload} from "google-auth-library";
 import {EnumUserPermission, IUser} from "../types/user.types";
-import {userRepository} from "../utils/factory";
+import {userRepository, whitelistRepository} from "../utils/factory";
 import {v4 as uuidV4} from 'uuid'
+import {IWhitelist} from "../types/whitelist.types";
 
 export default class UserService {
     async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
@@ -10,9 +11,13 @@ export default class UserService {
 
         if (!user) {
             let userPermission: EnumUserPermission = EnumUserPermission.DEFAULT
+            let isInternalUser: boolean = false
 
-            if (payload.email == "joaololluc4s@gmail.com") {
-                userPermission = EnumUserPermission.ADMIN
+            const whiteListUser: IWhitelist = await whitelistRepository.findOneByEmail(payload.email)
+
+            if (whiteListUser) {
+                userPermission = whiteListUser?.typePermission
+                isInternalUser = true
             }
 
             const userConfig: IUser = {
@@ -21,11 +26,13 @@ export default class UserService {
                 googleSub: payload?.sub,
                 email: payload?.email,
                 typePermission: userPermission,
+                isInternalUser: isInternalUser,
                 photoUrl: payload?.picture,
                 lastActivity: new Date()
             }
 
             user = await userRepository.createNewUser(userConfig)
+
             isNewUser = true
         }
 

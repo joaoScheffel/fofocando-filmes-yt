@@ -37,7 +37,7 @@ const authTokenSchema: Schema = new Schema<IAuthToken>({
     }
 }, {timestamps: true})
 
-const authTokenCollection = model<IAuthToken>('authTokenCollection', authTokenSchema,  'auth-tokens')
+const authTokenCollection = model<IAuthToken>('authTokenCollection', authTokenSchema,  'authTokens')
 
 export class AuthTokenRepository {
     async upsertAuthToken(config: IAuthToken): Promise<IAuthToken> {

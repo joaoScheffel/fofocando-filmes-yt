@@ -10,10 +10,12 @@ export interface IUser extends ITimesTamps {
     lastActivity: Date
 
     typePermission: EnumUserPermission
+    isInternalUser: boolean
     googleSub: string
 }
 
 export enum EnumUserPermission {
     DEFAULT = "DEFAULT",
-    ADMIN = "ADMIN"
+    ADMIN = "ADMIN",
+    MASTER = "MASTER"
 }

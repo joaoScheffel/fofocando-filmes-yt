@@ -25,6 +25,10 @@ const userSchema: Schema = new Schema<IUser>({
         type: String,
         required: [true, 'typePermission in userSchema not found']
     },
+    isInternalUser: {
+        type: Boolean,
+        required: [true, 'isInternalUser in userSchema not found']
+    },
     googleSub: {
         type: String,
         required: [true, 'googleSub in userSchema not found']

@@ -7,10 +7,13 @@ import Config from "../config/config";
 import {AuthTokenRepository} from "../repositories/auth-token.repository";
 import AuthMiddleware from "../middlewares/auth.middleware";
 import {RequestLogRepository} from "../repositories/request-log.repository";
+import {WhitelistRepository} from "../repositories/whitelist.repository";
 
 Config.load()
 
 export const requestLogRepository: RequestLogRepository = new RequestLogRepository()
+
+export const whitelistRepository: WhitelistRepository = new WhitelistRepository()
 
 export const userRepository: UserRepository = new UserRepository()
 
