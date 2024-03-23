@@ -1,7 +1,7 @@
-import {TokenPayload} from "google-auth-library";
-import {EnumUserPermission, IUser} from "../types/user.types";
-import {userRepository} from "../utils/factory";
-import {v4 as uuidV4} from 'uuid'
+import {TokenPayload} from "google-auth-library"
+import {EnumUserPermission, IUser} from "../types/user.types"
+import {userRepository} from "../utils/factory"
+import {v4 as uuidV4} from "uuid"
 
 export default class UserService {
     async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {

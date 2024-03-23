@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv"
 
 export default class Config {
     static NODE_ENV: string
@@ -21,11 +21,11 @@ export default class Config {
 
     private static validateVariables(): void {
         const requiredVariables: string[] = [
-            'PORT',
-            'NODE_ENV',
-            'DATABASE_URL',
-            'GOOGLE_AUTH_ID',
-            'GOOGLE_AUTH_SECRET'
+            "PORT",
+            "NODE_ENV",
+            "DATABASE_URL",
+            "GOOGLE_AUTH_ID",
+            "GOOGLE_AUTH_SECRET"
         ]
 
         for (const variable of requiredVariables) {

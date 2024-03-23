@@ -1,15 +1,15 @@
-import {LoginTicket, OAuth2Client, TokenPayload} from "google-auth-library";
-import Config from "../config/config";
-import {getAppUrl} from "../utils/string.utils";
-import {ServerError} from "../errors/server-error";
-import {GetTokenResponse} from "google-auth-library/build/src/auth/oauth2client";
-import {UnauthorizedError} from "../errors/unauthorized-error";
+import {LoginTicket, OAuth2Client, TokenPayload} from "google-auth-library"
+import Config from "../config/config"
+import {getAppUrl} from "../utils/string.utils"
+import {ServerError} from "../errors/server-error"
+import {GetTokenResponse} from "google-auth-library/build/src/auth/oauth2client"
+import {UnauthorizedError} from "../errors/unauthorized-error"
 
 export default class GoogleApiService {
     protected oauthClient: OAuth2Client
 
     constructor() {
-        this.oauthClient = new OAuth2Client(Config.GOOGLE_AUTH_ID, Config.GOOGLE_AUTH_SECRET, getAppUrl() + '/auth/redirect-google')
+        this.oauthClient = new OAuth2Client(Config.GOOGLE_AUTH_ID, Config.GOOGLE_AUTH_SECRET, getAppUrl() + "/auth/redirect-google")
     }
 
     generateAuthUrl(): string {
@@ -27,7 +27,7 @@ export default class GoogleApiService {
 
     async verifyCode(code: string): Promise<GetTokenResponse> {
         if (!code) {
-            throw new ServerError('GoogleApiService.verifyCode')
+            throw new ServerError("GoogleApiService.verifyCode")
         }
 
         let tokenResponse: GetTokenResponse
@@ -35,11 +35,11 @@ export default class GoogleApiService {
         try {
             tokenResponse = await this.oauthClient.getToken(code)
         } catch (e) {
-            throw new UnauthorizedError('Invalid or expired code, please try again')
+            throw new UnauthorizedError("Invalid or expired code, please try again")
         }
 
         if (!tokenResponse) {
-            throw new ServerError('GoogleApiService.verifyCode at !tokenResponse')
+            throw new ServerError("GoogleApiService.verifyCode at !tokenResponse")
         }
 
         return tokenResponse
@@ -47,13 +47,13 @@ export default class GoogleApiService {
 
     async getTicketFromTokenResponse(tokenResponse: GetTokenResponse): Promise<LoginTicket> {
         if (!tokenResponse) {
-            throw new ServerError('GoogleApiService.getPayloadFromTokenResponse at !tokenResponse')
+            throw new ServerError("GoogleApiService.getPayloadFromTokenResponse at !tokenResponse")
         }
 
         const idToken: string = tokenResponse?.tokens?.id_token
 
         if (!idToken) {
-            throw new ServerError('GoogleApiService.getPayloadFromTokenResponse at !idToken')
+            throw new ServerError("GoogleApiService.getPayloadFromTokenResponse at !idToken")
         }
 
         return this.getTicketByIdToken(idToken)
@@ -61,7 +61,7 @@ export default class GoogleApiService {
 
     async getTicketByIdToken(idToken: string): Promise<LoginTicket> {
         if (!idToken) {
-            throw new ServerError('GoogleApiService.getTicketByIdToken at !idToken')
+            throw new ServerError("GoogleApiService.getTicketByIdToken at !idToken")
         }
 
         let ticket: LoginTicket
@@ -69,10 +69,10 @@ export default class GoogleApiService {
         try {
             ticket = await this.oauthClient.verifyIdToken({idToken, audience: this.oauthClient._clientId})
         } catch (e) {
-            if (e?.message?.includes('Token used too late')) {
-                throw new UnauthorizedError('Expired access token')
+            if (e?.message?.includes("Token used too late")) {
+                throw new UnauthorizedError("Expired access token")
             } else {
-                throw new UnauthorizedError('Invalid access token')
+                throw new UnauthorizedError("Invalid access token")
             }
         }
 
@@ -81,13 +81,13 @@ export default class GoogleApiService {
 
     getPayloadFromTicket(ticket: LoginTicket): TokenPayload {
         if (!ticket) {
-            throw new ServerError('GoogleApiService.getPayloadFromTicket at !ticket')
+            throw new ServerError("GoogleApiService.getPayloadFromTicket at !ticket")
         }
 
         const userPayload: TokenPayload = ticket.getPayload()
 
         if (!userPayload) {
-            throw new UnauthorizedError('User payload not found')
+            throw new UnauthorizedError("User payload not found")
         }
 
         return userPayload

@@ -1,4 +1,4 @@
-import {ITimesTamps} from "./timestamps.types";
+import {ITimesTamps} from "./timestamps.types"
 
 export interface IUser extends ITimesTamps {
     _id?: string

@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
-import Config from "./config";
-import loggerUtils from "../utils/logger.utils";
+import mongoose from "mongoose"
+import Config from "./config"
+import loggerUtils from "../utils/logger.utils"
 
 export class DbConfig {
     protected uri: string
@@ -12,11 +12,11 @@ export class DbConfig {
     }
 
     async mainConfiguration(): Promise<void> {
-        loggerUtils.debug('Starting db configuration.')
+        loggerUtils.debug("Starting db configuration.")
 
         try {
             await mongoose.connect(this.uri)
-            loggerUtils.info('Successfully connected to database!')
+            loggerUtils.info("Successfully connected to database!")
         } catch (e) {
             loggerUtils.error(`Error trying to connect to database, error log: ${e}`)
         }

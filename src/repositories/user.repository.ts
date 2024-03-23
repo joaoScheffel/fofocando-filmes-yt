@@ -1,21 +1,21 @@
-import {model, Schema} from "mongoose";
-import {IUser} from "../types/user.types";
-import {ServerError} from "../errors/server-error";
-import {BadRequestError} from "../errors/bad-request-error";
+import {model, Schema} from "mongoose"
+import {IUser} from "../types/user.types"
+import {ServerError} from "../errors/server-error"
+import {BadRequestError} from "../errors/bad-request-error"
 
 const userSchema: Schema = new Schema<IUser>({
     userUuid: {
         type: String,
-        required: [true, 'userUuid in userSchema not found'],
+        required: [true, "userUuid in userSchema not found"],
         unique: true
     },
     username: {
         type: String,
-        required: [true, 'username in userSchema not found']
+        required: [true, "username in userSchema not found"]
     },
     email: {
         type: String,
-        required: [true, 'email in userSchema not found'],
+        required: [true, "email in userSchema not found"],
         unique: true
     },
     photoUrl: {
@@ -23,11 +23,11 @@ const userSchema: Schema = new Schema<IUser>({
     },
     typePermission: {
         type: String,
-        required: [true, 'typePermission in userSchema not found']
+        required: [true, "typePermission in userSchema not found"]
     },
     googleSub: {
         type: String,
-        required: [true, 'googleSub in userSchema not found']
+        required: [true, "googleSub in userSchema not found"]
     },
     lastActivity: {
         type: Date,
@@ -36,12 +36,12 @@ const userSchema: Schema = new Schema<IUser>({
     timestamps: true
 })
 
-const userCollection = model<IUser>('userCollection', userSchema, 'users')
+const userCollection = model<IUser>("userCollection", userSchema, "users")
 
 export class UserRepository {
     async createNewUser(config: IUser): Promise<IUser> {
         if (!config) {
-            throw new ServerError('UserRepository.createNewUser at !config')
+            throw new ServerError("UserRepository.createNewUser at !config")
         }
 
         try {
@@ -53,7 +53,7 @@ export class UserRepository {
 
     async findOneBySub(sub: string): Promise<IUser> {
         if (!sub) {
-            throw new ServerError('UserRepository.findOneBySub at !sub')
+            throw new ServerError("UserRepository.findOneBySub at !sub")
         }
 
         try {

@@ -1,12 +1,12 @@
-import GoogleApiService from "../services/google-api.service";
-import AuthController from "../controllers/auth.controller";
-import AuthService from "../services/auth.service";
-import {UserRepository} from "../repositories/user.repository";
-import UserService from "../services/user.service";
-import Config from "../config/config";
-import {AuthTokenRepository} from "../repositories/auth-token.repository";
-import AuthMiddleware from "../middlewares/auth.middleware";
-import {RequestLogRepository} from "../repositories/request-log.repository";
+import GoogleApiService from "../services/google-api.service"
+import AuthController from "../controllers/auth.controller"
+import AuthService from "../services/auth.service"
+import {UserRepository} from "../repositories/user.repository"
+import UserService from "../services/user.service"
+import Config from "../config/config"
+import {AuthTokenRepository} from "../repositories/auth-token.repository"
+import AuthMiddleware from "../middlewares/auth.middleware"
+import {RequestLogRepository} from "../repositories/request-log.repository"
 
 Config.load()
 

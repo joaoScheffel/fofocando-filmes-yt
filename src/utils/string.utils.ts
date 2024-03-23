@@ -1,9 +1,9 @@
-import Config from "../config/config";
+import Config from "../config/config"
 
 export function getAppUrl(): string {
-    let url: string = ''
+    let url: string = ""
 
-    if (Config.NODE_ENV === 'development') {
+    if (Config.NODE_ENV === "development") {
         url = "http://localhost:3000"
     }
 
