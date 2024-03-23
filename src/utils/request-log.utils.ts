@@ -1,12 +1,12 @@
-import {IRequestLog} from "../types/request/request-log.types"
 import {IncomingHttpHeaders} from "http"
-import {EnumRequestEvent} from "../types/request/request-event.types"
-import {EnumRequestEndpoint} from "../types/request/request-endpoint.types"
-import {EnumRequestMethod} from "../types/request/request-method.types"
 import {Request, Response} from "express"
 import {UnauthorizedError} from "../errors/unauthorized-error"
 import {v4 as uuidV4} from "uuid"
 import {requestLogRepository} from "./factory"
+import {IRequestLog} from "../interfaces/request-log.interface";
+import {EnumRequestMethod} from "../enums/request/request-method.enum";
+import {EnumRequestEndpoint} from "../enums/request/request-endpoint.enum";
+import {EnumRequestEvent} from "../enums/request/request-event.enum";
 
 export class RequestLogUtils implements IRequestLog {
     requestUuid: string

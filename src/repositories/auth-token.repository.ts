@@ -1,5 +1,5 @@
 import {model, Schema} from "mongoose"
-import {IAuthToken} from "../types/auth-token.types"
+import {IAuthToken} from "../interfaces/auth-token.interface"
 import {ServerError} from "../errors/server-error"
 import {BadRequestError} from "../errors/bad-request-error"
 

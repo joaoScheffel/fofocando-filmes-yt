@@ -1,8 +1,8 @@
-import {ITimesTamps} from "../timestamps.types"
 import {IncomingHttpHeaders} from "http"
-import {EnumRequestEndpoint} from "./request-endpoint.types"
-import {EnumRequestEvent} from "./request-event.types"
-import {EnumRequestMethod} from "./request-method.types"
+import {ITimesTamps} from "./timestamps.interface";
+import {EnumRequestMethod} from "../enums/request/request-method.enum";
+import {EnumRequestEndpoint} from "../enums/request/request-endpoint.enum";
+import {EnumRequestEvent} from "../enums/request/request-event.enum";
 
 export interface IRequestLog extends ITimesTamps {
     requestUuid: string

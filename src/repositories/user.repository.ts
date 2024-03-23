@@ -1,5 +1,5 @@
 import {model, Schema} from "mongoose"
-import {IUser} from "../types/user.types"
+import {IUser} from "../interfaces/user.interface"
 import {ServerError} from "../errors/server-error"
 import {BadRequestError} from "../errors/bad-request-error"
 
@@ -21,9 +21,9 @@ const userSchema: Schema = new Schema<IUser>({
     photoUrl: {
         type: String,
     },
-    typePermission: {
+    userPermission: {
         type: String,
-        required: [true, "typePermission in userSchema not found"]
+        required: [true, "userPermission in userSchema not found"]
     },
     googleSub: {
         type: String,

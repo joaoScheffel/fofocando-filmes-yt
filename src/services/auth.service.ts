@@ -1,14 +1,14 @@
 import {Request} from "express"
-import {IAuthQueryParams} from "../types/google-api.types"
+import {IAuthQueryParams} from "../interfaces/google-api.interface"
 import {BadRequestError} from "../errors/bad-request-error"
 import {GetTokenResponse} from "google-auth-library/build/src/auth/oauth2client"
 import {UnauthorizedError} from "../errors/unauthorized-error"
 import {LoginTicket, TokenPayload} from "google-auth-library"
 import {authTokenRepository, googleApiService, userService} from "../utils/factory"
-import {IUser} from "../types/user.types"
+import {IUser} from "../interfaces/user.interface"
 import {ServerError} from "../errors/server-error"
-import {IAuthToken} from "../types/auth-token.types"
-import {EnumRequestEvent} from "../types/request/request-event.types"
+import {IAuthToken} from "../interfaces/auth-token.interface"
+import {EnumRequestEvent} from "../enums/request/request-event.enum"
 
 export default class AuthService {
     async validateGoogleAuthRedirect(req: Request): Promise<{user: IUser, accessToken: string}> {
