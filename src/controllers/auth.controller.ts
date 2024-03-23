@@ -1,5 +1,5 @@
 import {Request, Response} from "express"
-import {authService, googleApiService} from "../utils/factory"
+import {authService, googleApiService} from "../utils/factory.utils"
 
 export default class AuthController {
     async generateAuthUrl(req: Request, res: Response) {
