@@ -3,5 +3,6 @@ import {EnumUserPermission} from "./user.types";
 
 export interface IWhitelist extends ITimesTamps {
     email: string
-    typePermission: EnumUserPermission.ADMIN | EnumUserPermission.MASTER
+    typePermission: EnumUserPermission.ADMIN | EnumUserPermission.MASTER,
+    isBanned?: boolean
 }

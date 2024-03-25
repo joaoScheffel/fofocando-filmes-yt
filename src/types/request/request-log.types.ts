@@ -6,6 +6,7 @@ import {EnumRequestMethod} from "./request-method.types";
 
 export interface IRequestLog extends ITimesTamps {
     requestUuid: string
+    userUuid?: string
 
     requestHeaders: IncomingHttpHeaders
     requestMethod: EnumRequestMethod

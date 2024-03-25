@@ -11,12 +11,15 @@ export class RequestErrorMiddleware {
         const name: string = error?.name
         const origin: string = error?.origin
         const stack: string = error?.stack
+        const showErrorMessage: boolean = error?.showErrorMessage || false
+
 
         const isDevelopment: boolean = Config.NODE_ENV === 'development'
 
         if (!res.headersSent) {
             res.status(statusCode).json({
                 message,
+                showErrorMessage: showErrorMessage,
                 name,
                 stack: isDevelopment? stack : null,
                 origin

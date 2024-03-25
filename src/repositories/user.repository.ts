@@ -55,15 +55,15 @@ export class UserRepository {
         }
     }
 
-    async findOneBySub(sub: string): Promise<IUser> {
-        if (!sub) {
-            throw new ServerError('UserRepository.findOneBySub at !sub')
+    async findOneByEmail(email: string): Promise<IUser> {
+        if (!email) {
+            throw new ServerError('UserRepository.findOneByEmail at !email')
         }
 
         try {
-            return await userCollection.findOne({"googleSub": sub})
+            return await userCollection.findOne({"googleSub": email})
         } catch (e) {
-            throw new BadRequestError(`Error trying findOneBySub, error log ${e}`)
+            throw new BadRequestError(`Error trying findOneByEmail, error log ${e}`)
         }
     }
 }

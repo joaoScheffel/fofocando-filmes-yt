@@ -38,10 +38,6 @@ export default class GoogleApiService {
             throw new UnauthorizedError('Invalid or expired code, please try again')
         }
 
-        if (!tokenResponse) {
-            throw new ServerError('GoogleApiService.verifyCode at !tokenResponse')
-        }
-
         return tokenResponse
     }
 
@@ -51,10 +47,6 @@ export default class GoogleApiService {
         }
 
         const idToken: string = tokenResponse?.tokens?.id_token
-
-        if (!idToken) {
-            throw new ServerError('GoogleApiService.getPayloadFromTokenResponse at !idToken')
-        }
 
         return this.getTicketByIdToken(idToken)
     }

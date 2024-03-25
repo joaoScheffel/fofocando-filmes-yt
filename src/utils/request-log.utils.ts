@@ -10,6 +10,7 @@ import {requestLogRepository} from "./factory";
 
 export class RequestLogUtils implements IRequestLog {
     requestUuid: string
+    userUuid?: string
 
     requestUrl: string
     requestPath: string
@@ -60,6 +61,7 @@ export class RequestLogUtils implements IRequestLog {
         this.requestStartedAt = new Date()
 
         this.requestUuid = uuidV4()
+        this.userUuid =
 
         this.requestMethod = EnumRequestMethod[req?.method]
         this.requestHeaders = req?.headers
@@ -95,5 +97,9 @@ export class RequestLogUtils implements IRequestLog {
         }
 
         await requestLogRepository.upsertRequestLog(config)
+    }
+
+    async getUserUuidByRequest(req: Request) {
+
     }
 }

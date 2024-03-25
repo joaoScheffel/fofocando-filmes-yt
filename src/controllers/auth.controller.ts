@@ -1,8 +1,10 @@
 import {Request, Response} from "express";
 import {authService, googleApiService} from "../utils/factory";
+import {BadRequestError} from "../errors/bad-request-error";
 
 export default class AuthController {
     async generateAuthUrl(req: Request, res: Response) {
+        throw new BadRequestError('Google auth redirect query invalid!')
         const authUrl: string = googleApiService.generateAuthUrl()
 
         return res.status(200).json({

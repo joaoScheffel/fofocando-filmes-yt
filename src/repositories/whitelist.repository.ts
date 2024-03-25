@@ -1,8 +1,8 @@
-import {model, Schema} from "mongoose";
-import {ServerError} from "../errors/server-error";
-import {BadRequestError} from "../errors/bad-request-error";
-import {IWhitelist} from "../types/whitelist.types";
-import {EnumUserPermission} from "../types/user.types";
+import {model, Schema} from "mongoose"
+import {ServerError} from "../errors/server-error"
+import {BadRequestError} from "../errors/bad-request-error"
+import {IWhitelist} from "../types/whitelist.types"
+import {EnumUserPermission} from "../types/user.types"
 
 const whitelistSchema: Schema = new Schema<IWhitelist>({
     email: {

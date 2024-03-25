@@ -6,7 +6,7 @@ import {IWhitelist} from "../types/whitelist.types";
 
 export default class UserService {
     async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
-        let user: IUser = await userRepository.findOneBySub(payload?.sub)
+        let user: IUser = await userRepository.findOneByEmail(payload?.email)
         let isNewUser: boolean = false
 
         if (!user) {

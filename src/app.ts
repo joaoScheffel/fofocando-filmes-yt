@@ -4,9 +4,9 @@ import morgan from 'morgan'
 import Config from "./config/config";
 import loggerUtils from "./utils/logger.utils";
 import {DbConfig} from "./config/db.config";
-import {RequestErrorMiddleware} from "./middlewares/request-error.middleware";
 import Routes from "./routes";
-import {requestLogMiddleware} from "./middlewares/request-log.middleware";
+import {RequestErrorMiddleware} from "./middlewares/request/request-error.middleware";
+import {requestLogMiddleware} from "./middlewares/request/request-log.middleware";
 
 class App {
     private _express: Express
