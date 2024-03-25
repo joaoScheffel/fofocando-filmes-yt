@@ -1,5 +1,5 @@
 import {ITimesTamps} from "./timestamps.interface"
-import {EnumUserPermission} from "../enums/user-permission.enum";
+import {EnumUserPermission} from "../enums/user-permission.enum"
 
 export interface IUser extends ITimesTamps {
     userUuid: string

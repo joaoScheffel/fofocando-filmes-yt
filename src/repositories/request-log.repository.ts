@@ -1,10 +1,10 @@
 import {model, Schema} from "mongoose"
 import {ServerError} from "../errors/server-error"
 import {BadRequestError} from "../errors/bad-request-error"
-import {IRequestLog} from "../interfaces/request-log.interface";
-import {EnumRequestEvent} from "../enums/request/request-event.enum";
-import {EnumRequestEndpoint} from "../enums/request/request-endpoint.enum";
-import {EnumRequestMethod} from "../enums/request/request-method.enum";
+import {IRequestLog} from "../interfaces/request-log.interface"
+import {EnumRequestEvent} from "../enums/request/request-event.enum"
+import {EnumRequestEndpoint} from "../enums/request/request-endpoint.enum"
+import {EnumRequestMethod} from "../enums/request/request-method.enum"
 
 const requestLogSchema: Schema = new Schema<IRequestLog>({
     requestUuid: {
