@@ -1,7 +1,7 @@
 import {RestError} from "./rest-error";
 
 export class BadRequestError extends RestError {
-    constructor(message: string) {
-        super(message, 400, 'BadRequestError')
+    constructor(origin: string, showErrorMessage: boolean = false, message: string = 'Ocorreu algum erro, tente novamente', suggestion: string = '') {
+        super(origin, message, 400, 'BadRequestError', showErrorMessage, suggestion)
     }
 }

@@ -58,6 +58,9 @@ const requestLogSchema: Schema = new Schema<IRequestLog>({
     },
     isResponseError: {
         type: Boolean
+    },
+    responseError: {
+        type: Object
     }
 }, {timestamps: true})
 

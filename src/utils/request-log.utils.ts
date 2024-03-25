@@ -7,6 +7,7 @@ import {Request, Response} from "express";
 import {UnauthorizedError} from "../errors/unauthorized-error";
 import {v4 as uuidV4} from 'uuid'
 import {requestLogRepository} from "./factory";
+import {RestError} from "../errors/rest-error";
 
 export class RequestLogUtils implements IRequestLog {
     requestUuid: string
@@ -25,6 +26,7 @@ export class RequestLogUtils implements IRequestLog {
     requestStartedAt: Date
 
     requestFinishedAt: Date
+    responseError: RestError
     responseStatus: number
     isResponseError: boolean
 
@@ -73,7 +75,9 @@ export class RequestLogUtils implements IRequestLog {
 
     async finishRequest(res: Response): Promise<void> {
         this.responseStatus = res?.statusCode
-        this.isResponseError = this.responseStatus > 200
+        this.isResponseError = this?.responseStatus > 200
+
+        this.responseError = res["responseError"] || null
         this.requestFinishedAt = new Date()
 
         await this.upsertRequestLog()
@@ -93,13 +97,10 @@ export class RequestLogUtils implements IRequestLog {
             endpoint: this.endpoint,
             responseStatus: this.responseStatus,
             requestPath: this.requestPath,
-            isResponseError: this.isResponseError
+            isResponseError: this.isResponseError,
+            responseError: this.responseError
         }
 
         await requestLogRepository.upsertRequestLog(config)
-    }
-
-    async getUserUuidByRequest(req: Request) {
-
     }
 }

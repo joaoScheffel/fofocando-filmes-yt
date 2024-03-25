@@ -3,6 +3,7 @@ import {IncomingHttpHeaders} from "http";
 import {EnumRequestEndpoint} from "./request-endpoint.types";
 import {EnumRequestEvent} from "./request-event.types";
 import {EnumRequestMethod} from "./request-method.types";
+import {RestError} from "../../errors/rest-error";
 
 export interface IRequestLog extends ITimesTamps {
     requestUuid: string
@@ -21,7 +22,8 @@ export interface IRequestLog extends ITimesTamps {
 
     requestStartedAt: Date
 
-    requestFinishedAt?: Date
-    responseStatus?: number
     isResponseError?: boolean
+    responseError?: RestError
+    responseStatus?: number
+    requestFinishedAt?: Date
 }

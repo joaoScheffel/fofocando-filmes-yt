@@ -14,6 +14,11 @@ const whitelistSchema: Schema = new Schema<IWhitelist>({
         type: String,
         required: [true, 'typePermission in whitelistSchema not found'],
         enum: [EnumUserPermission.MASTER, EnumUserPermission.ADMIN]
+    },
+    isBanned: {
+        type: Boolean,
+        required: [true, 'isBanned in whitelistSchema not found'],
+        default: false
     }
 }, {timestamps: true})
 

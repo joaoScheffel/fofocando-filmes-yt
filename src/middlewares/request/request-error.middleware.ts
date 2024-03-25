@@ -7,27 +7,35 @@ import loggerUtils from "../../utils/logger.utils";
 export class RequestErrorMiddleware {
     async validateErrors(error: Error & Partial<RestError>, req: Request, res: Response, next: NextFunction): Promise<void> {
         const statusCode: number = error?.statusCode || 500
-        const message: string = error?.message || 'Internal Server Error'
+        const message: string = error?.message || 'Ocorreu algum erro, tente novamente'
+        const showErrorMessage: boolean = error?.showErrorMessage || false
+
         const name: string = error?.name
         const origin: string = error?.origin
         const stack: string = error?.stack
-        const showErrorMessage: boolean = error?.showErrorMessage || false
-
+        const suggestion: string = error?.suggestion
 
         const isDevelopment: boolean = Config.NODE_ENV === 'development'
 
         if (!res.headersSent) {
             res.status(statusCode).json({
                 message,
-                showErrorMessage: showErrorMessage,
-                name,
-                stack: isDevelopment? stack : null,
-                origin
+                showErrorMessage,
+                name
             })
-
-            return
         } else {
             loggerUtils.error(`Error after headersSent, error log: ${error}`)
+        }
+
+        res["responseError"] = {
+            statusCode,
+            message,
+            name,
+            origin,
+            showErrorMessage,
+            stack,
+            isDevelopment,
+            suggestion
         }
     }
 }
