@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express"
 import {UnauthorizedError} from "../errors/unauthorized-error"
-import {googleApiService, userRepository} from "../utils/factory.utils"
+import {googleApiService, userRepository} from "../utils/factory"
 import {LoginTicket, TokenPayload} from "google-auth-library"
 import {IUser} from "../interfaces/user.interface"
 

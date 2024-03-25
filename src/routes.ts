@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {authController} from "./utils/factory.utils"
+import {authController} from "./utils/factory"
 
 export default class Routes {
     private routes: Router = Router()
