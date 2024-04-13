@@ -7,7 +7,7 @@ import loggerUtils from "../../utils/logger.utils";
 export class RequestErrorMiddleware {
     async validateErrors(error: Error & Partial<RestError>, req: Request, res: Response, next: NextFunction): Promise<void> {
         const statusCode: number = error?.statusCode || 500
-        const message: string = error?.message || 'Ocorreu algum erro, tente novamente'
+        const message: string = error?.message || 'Aconteceu algum erro, tente novamente'
         const showErrorMessage: boolean = error?.showErrorMessage || false
 
         const name: string = error?.name

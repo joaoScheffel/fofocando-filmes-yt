@@ -5,9 +5,11 @@ import {EnumRequestEndpoint} from "../types/request/request-endpoint.types";
 import {EnumRequestMethod} from "../types/request/request-method.types";
 import {Request, Response} from "express";
 import {UnauthorizedError} from "../errors/unauthorized-error";
-import {v4 as uuidV4} from 'uuid'
-import {requestLogRepository} from "./factory";
+import {authTokenRepository, googleApiService, requestLogRepository, userRepository} from "./factory";
 import {RestError} from "../errors/rest-error";
+import {uuidV4} from "./string.utils";
+import {IUser} from "../types/user.types";
+import {LoginTicket, TokenPayload} from "google-auth-library";
 
 export class RequestLogUtils implements IRequestLog {
     requestUuid: string
@@ -98,9 +100,39 @@ export class RequestLogUtils implements IRequestLog {
             responseStatus: this.responseStatus,
             requestPath: this.requestPath,
             isResponseError: this.isResponseError,
-            responseError: this.responseError
+            responseError: this.responseError,
+            userUuid: this.userUuid
         }
 
         await requestLogRepository.upsertRequestLog(config)
+    }
+
+    async getRequestUser(req: Request): Promise<IUser> {
+        let user: IUser
+        const token: string = req?.headers?.authorization
+
+        if (!token) {
+            return {} as IUser
+        }
+
+        if (!await authTokenRepository.getAuthTokenByToken(token)) {
+            throw new UnauthorizedError('User token not found', '', true, "Autorização inválida, por favor faça login novamente")
+        }
+
+        const ticket: LoginTicket = await googleApiService.getTicketByIdToken(token)
+
+        if (!ticket) {
+            throw new UnauthorizedError('User ticket not found', '', true, "Autorização inválida, por favor faça login novamente")
+        }
+
+        const payload: TokenPayload = googleApiService.getPayloadFromTicket(ticket)
+
+        if (!payload || !payload?.email) {
+            throw new UnauthorizedError('User payload not found', '', true, "Autorização inválida, por favor faça login novamente")
+        }
+
+        user = await userRepository.findOneByEmail(payload?.email)
+
+        return user
     }
 }

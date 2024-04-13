@@ -1,8 +1,9 @@
 import {TokenPayload} from "google-auth-library";
 import {EnumUserPermission, IUser} from "../types/user.types";
 import {userRepository, whitelistRepository} from "../utils/factory";
-import {v4 as uuidV4} from 'uuid'
 import {IWhitelist} from "../types/whitelist.types";
+import {UnauthorizedError} from "../errors/unauthorized-error";
+import {uuidV4} from "../utils/string.utils";
 
 export default class UserService {
     async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
@@ -15,7 +16,9 @@ export default class UserService {
 
             const whiteListUser: IWhitelist = await whitelistRepository.findOneByEmail(payload.email)
 
-            if (whiteListUser) {
+            if (whiteListUser?.isBanned) {
+                throw new UnauthorizedError('User is banned, please contact support', 'whiteListUser?.isBanned')
+            } else if (whiteListUser) {
                 userPermission = whiteListUser?.typePermission
                 isInternalUser = true
             }

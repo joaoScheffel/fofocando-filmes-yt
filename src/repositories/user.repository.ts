@@ -45,25 +45,25 @@ const userCollection = model<IUser>('userCollection', userSchema, 'users')
 export class UserRepository {
     async createNewUser(config: IUser): Promise<IUser> {
         if (!config) {
-            throw new ServerError('UserRepository.createNewUser at !config')
+            throw new ServerError('UserRepository.createNewUser at !config', 'validate some fields before create new user')
         }
 
         try {
             return await userCollection.create(config)
         } catch (e) {
-            throw new BadRequestError(`Error trying insert new user, error log: ${e}`)
+            throw new BadRequestError(`Error trying insert new user, error log: ${e}`, 'validate some fields in config')
         }
     }
 
     async findOneByEmail(email: string): Promise<IUser> {
         if (!email) {
-            throw new ServerError('UserRepository.findOneByEmail at !email')
+            throw new ServerError('UserRepository.findOneByEmail at !email', 'validate email before find user')
         }
 
         try {
-            return await userCollection.findOne({"googleSub": email})
+            return await userCollection.findOne({"email": email})
         } catch (e) {
-            throw new BadRequestError(`Error trying findOneByEmail, error log ${e}`)
+            throw new BadRequestError(`Error trying findOneByEmail, error log ${e}`, 'validate email before find user')
         }
     }
 }

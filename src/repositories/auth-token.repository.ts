@@ -42,13 +42,28 @@ const authTokenCollection = model<IAuthToken>('authTokenCollection', authTokenSc
 export class AuthTokenRepository {
     async upsertAuthToken(config: IAuthToken): Promise<IAuthToken> {
         if (!config) {
-            throw new ServerError('AuthTokenRepository.upsertAuthToken at !config')
+            throw new ServerError('AuthTokenRepository.upsertAuthToken at !config', 'validate fields before upsert')
         }
 
         try {
-            return await authTokenCollection.findOneAndUpdate({userUuid: config?.userUuid}, {$set: config}, {upsert: true, new: true, runValidators: true})
+            return await authTokenCollection.findOneAndUpdate({userUuid: config?.userUuid},
+                {$set: config},
+                {upsert: true, new: true, runValidators: true}
+            )
         } catch (e) {
-            throw new BadRequestError(`Error trying upsert authToken document, error log ${e}`)
+            throw new BadRequestError(`Error trying upsert authToken document, error log ${e}`, 'validate fields in config')
+        }
+    }
+
+    async getAuthTokenByToken(accessToken: string): Promise<IAuthToken> {
+        if (!accessToken) {
+            throw new ServerError('AuthTokenRepository.getAuthTokenByToken at !accessToken', 'validate fields before getAuthTokenByToken')
+        }
+
+        try {
+            return await authTokenCollection.findOne({access_token: accessToken})
+        } catch (e) {
+            throw new BadRequestError(`Error trying get authToken document, error log ${e}`, 'validate fields in config')
         }
     }
 }

@@ -5,6 +5,11 @@ import {IWhitelist} from "../types/whitelist.types"
 import {EnumUserPermission} from "../types/user.types"
 
 const whitelistSchema: Schema = new Schema<IWhitelist>({
+    whiteListUuid: {
+        type: String,
+        required: [true, 'whiteListUuid in whitelistSchema not found'],
+        unique: true
+    },
     email: {
         type: String,
         required: [true, 'email in whitelistSchema not found'],
@@ -27,7 +32,7 @@ const whitelistCollection = model<IWhitelist>('whitelist', whitelistSchema,  'wh
 export class WhitelistRepository {
     async upsertWhitelist(config: IWhitelist): Promise<IWhitelist> {
         if (!config) {
-            throw new ServerError('WhitelistRepository.upsertWhitelist at !config')
+            throw new ServerError('WhitelistRepository.upsertWhitelist at !config', 'validate fields before upsert')
         }
 
         try {
@@ -36,19 +41,19 @@ export class WhitelistRepository {
                 {upsert: true, new: true, runValidators: true}
             )
         } catch (e) {
-            throw new BadRequestError(`Error trying upsert whitelist document, error log ${e}`)
+            throw new BadRequestError(`Error trying upsert whitelist document, error log ${e}`, 'validate fields in config')
         }
     }
 
     async findOneByEmail(email: string): Promise<IWhitelist> {
         if (!email) {
-            throw new ServerError('WhitelistRepository.findOneByEmail at !email')
+            throw new ServerError('WhitelistRepository.findOneByEmail at !email', 'validate fields before findOneByEmail')
         }
 
         try {
             return await whitelistCollection.findOne({email: email})
         } catch (e) {
-            throw new BadRequestError(`Error trying findOneByEmail whitelist document, error log ${e}`)
+            throw new BadRequestError(`Error trying findOneByEmail whitelist document, error log ${e}`, 'validate fields in email')
         }
     }
 }

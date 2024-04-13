@@ -61,11 +61,16 @@ export default class GoogleApiService {
         try {
             ticket = await this.oauthClient.verifyIdToken({idToken, audience: this.oauthClient._clientId})
         } catch (e) {
+            let suggestion: string = ''
+            let messageError: string = ""
+
             if (e?.message?.includes('Token used too late')) {
-                throw new UnauthorizedError('Expired access token')
-            } else {
-                throw new UnauthorizedError('Invalid access token')
+                messageError = "Token expirado, por favor faça login novamente"
+                suggestion = "Token used too late"
             }
+
+            throw new UnauthorizedError('Expired access token', suggestion, true, messageError)
+
         }
 
         return ticket
@@ -76,12 +81,6 @@ export default class GoogleApiService {
             throw new ServerError('GoogleApiService.getPayloadFromTicket at !ticket')
         }
 
-        const userPayload: TokenPayload = ticket.getPayload()
-
-        if (!userPayload) {
-            throw new UnauthorizedError('User payload not found')
-        }
-
-        return userPayload
+        return ticket.getPayload()
     }
 }

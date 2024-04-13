@@ -12,6 +12,9 @@ const requestLogSchema: Schema = new Schema<IRequestLog>({
         required: [true, 'requestUuid in requestLogSchema not found'],
         unique: true
     },
+    userUuid: {
+        type: String,
+    },
     event: {
         type: String,
         enum: Object.values(EnumRequestEvent),
@@ -69,7 +72,7 @@ const requestLogCollection = model<IRequestLog>('requestLogCollection', requestL
 export class RequestLogRepository {
     async upsertRequestLog(config: IRequestLog) {
         if (!config) {
-            throw new ServerError('RequestLogRepository.upsertRequestLog at !config')
+            throw new ServerError('RequestLogRepository.upsertRequestLog at !config', 'validate fields before upsert')
         }
 
         try {
@@ -78,7 +81,7 @@ export class RequestLogRepository {
                {upsert: true, new: true, runValidators: true}
            )
        } catch (e) {
-            throw new BadRequestError(`Error trying upsert requestLog document, error log ${e}`)
+            throw new BadRequestError(`Error trying upsert requestLog document, error log ${e}`, 'validate fields in config')
        }
     }
 }

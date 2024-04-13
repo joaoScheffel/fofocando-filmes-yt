@@ -15,23 +15,28 @@ export default class AuthService {
         const redirectQuery: IAuthQueryParams = req.query
 
         if (!redirectQuery.authuser || !redirectQuery.scope || !redirectQuery.code || !redirectQuery.prompt) {
-            throw new BadRequestError('Google auth redirect query invalid!')
+            throw new BadRequestError('Google auth redirect query invalid!', 'AuthService.validateGoogleAuthRedirect', true)
         }
 
         const tokenResponse: GetTokenResponse = await googleApiService.verifyCode(redirectQuery.code)
+        const accessToken: string = tokenResponse?.tokens?.id_token
 
-        if (!tokenResponse?.tokens?.access_token) {
-            throw new UnauthorizedError('User access token not found!')
+        if (!accessToken) {
+            throw new UnauthorizedError('User access token not found!', 'AuthService.validateGoogleAuthRedirect', true)
         }
 
         const ticket: LoginTicket = await googleApiService.getTicketFromTokenResponse(tokenResponse)
+
+        if (!ticket) {
+            throw new UnauthorizedError('User ticket not found!', 'AuthService.validateGoogleAuthRedirect', true)
+        }
 
         const payload: TokenPayload = googleApiService.getPayloadFromTicket(ticket)
 
         const {user, isNewUser} = await userService.createUserByPayload(payload)
 
         if (!user) {
-            throw new ServerError('AuthService.validateGoogleAuthRedirect at !user')
+            throw new ServerError('AuthService.validateGoogleAuthRedirect at !user', 'User not found after creating user by payload', true)
         }
 
         if (isNewUser) {
@@ -45,36 +50,6 @@ export default class AuthService {
 
         await authTokenRepository.upsertAuthToken(authToken)
 
-        const accessToken: string = tokenResponse?.tokens?.id_token
-
         return {user, accessToken}
-    }
-
-    async getLoggedInUser(req: Request) {
-        const token: string = req?.headers?.authorization
-
-        if (!token) {
-            throw new UnauthorizedError('Authorization Token not found')
-        }
-
-        const ticket: LoginTicket = await googleApiService.getTicketByIdToken(token)
-
-        if (!ticket) {
-            throw new UnauthorizedError('User ticket not found')
-        }
-
-        const payload: TokenPayload = googleApiService.getPayloadFromTicket(ticket)
-
-        if (!payload || !payload?.email) {
-            throw new UnauthorizedError('User payload not found')
-        }
-
-        const user: IUser = await userRepository.findOneByEmail(payload?.email)
-
-        if (!user) {
-            throw new UnauthorizedError('User does not exist')
-        }
-
-        return user
     }
 }
