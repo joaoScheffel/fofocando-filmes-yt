@@ -1,6 +1,5 @@
-import {Request, Response} from "express";
-import {authService, googleApiService} from "../utils/factory";
-import {BadRequestError} from "../errors/bad-request-error";
+import {Request, Response} from "express"
+import {authService, googleApiService} from "../../utils/factory";
 
 export default class AuthController {
     async generateAuthUrl(req: Request, res: Response) {

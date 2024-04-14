@@ -1,25 +1,19 @@
-import GoogleApiService from "../services/google-api.service";
-import AuthController from "../controllers/auth.controller";
-import AuthService from "../services/auth.service";
-import {UserRepository} from "../repositories/user.repository";
-import UserService from "../services/user.service";
 import Config from "../config/config";
-import {AuthTokenRepository} from "../repositories/auth-token.repository";
-import AuthMiddleware from "../middlewares/auth.middleware";
-import {RequestLogRepository} from "../repositories/request-log.repository";
-import {WhitelistRepository} from "../repositories/whitelist.repository";
+import {RequestLogRepository} from "../infrastructure/repositories/request-log.repository";
+import {UserRepository} from "../infrastructure/repositories/user.repository";
+import UserService from "../application/services/user.service";
+import GoogleApiService from "../application/services/google-api.service";
+import AuthMiddleware from "../infrastructure/middlewares/auth.middleware";
+import AuthService from "../application/services/auth.service";
+import AuthController from "../infrastructure/controllers/auth.controller";
 
 Config.load()
 
 export const requestLogRepository: RequestLogRepository = new RequestLogRepository()
 
-export const whitelistRepository: WhitelistRepository = new WhitelistRepository()
-
 export const userRepository: UserRepository = new UserRepository()
 
 export const userService: UserService = new UserService()
-
-export const authTokenRepository: AuthTokenRepository = new AuthTokenRepository()
 
 export const googleApiService: GoogleApiService = new GoogleApiService()
 

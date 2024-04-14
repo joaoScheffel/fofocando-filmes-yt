@@ -1,12 +1,12 @@
-import 'express-async-errors'
+import "express-async-errors"
 import express, {Express} from "express"
-import morgan from 'morgan'
-import Config from "./config/config";
-import loggerUtils from "./utils/logger.utils";
-import {DbConfig} from "./config/db.config";
-import Routes from "./routes";
-import {RequestErrorMiddleware} from "./middlewares/request/request-error.middleware";
-import {requestLogMiddleware} from "./middlewares/request/request-log.middleware";
+import morgan from "morgan"
+import loggerUtils from "./utils/logger.utils"
+import Routes from "./routes"
+import {RequestErrorMiddleware} from "./infrastructure/middlewares/request-error.middleware"
+import {requestLogMiddleware} from "./infrastructure/middlewares/request-log.middleware"
+import {DbConfig} from "./infrastructure/database"
+import Config from "./config/config"
 
 class App {
     private _express: Express
@@ -28,20 +28,18 @@ class App {
     }
 
     private middlewares(): void {
-        this._express.use(morgan('dev'))
+        this._express.use(morgan("dev"))
         this._express.use(express.json())
         this._express.use(express.urlencoded({extended: true}))
         this._express.use(requestLogMiddleware)
     }
 
     private async startDb(): Promise<void> {
-        await new DbConfig().mainConfiguration()
+        await new DbConfig().initDatabase()
     }
 
     private startRoutes(): void {
-        loggerUtils.debug('Setting routes.')
-        this._express.use(new Routes().mainConfiguration)
-        loggerUtils.info('Successfully configured routes!')
+        this._express.use(new Routes().initRoutes)
     }
 
     private appListen(): void {
