@@ -1,29 +1,33 @@
 import {Request, Response, NextFunction} from "express"
-import {RestError} from "../../domain/errors/rest-error";
-import Config from "../../config/config";
-import loggerUtils from "../../utils/logger.utils";
+import {RestError} from "../../../domain/errors/rest-error"
+import {isDevelopment} from "../../../utils/app.utils";
+
 
 export class RequestErrorMiddleware {
     async validateErrors(error: Error & Partial<RestError>, req: Request, res: Response, next: NextFunction): Promise<void> {
-        const statusCode: number = error?.statusCode || 500
-        const message: string = error?.message || "Internal Server Error"
-        const name: string = error?.name
-        const origin: string = error?.origin
-        const stack: string = error?.stack
+        res.errorFromValidateErrors = error
 
-        const isDevelopment: boolean = Config.NODE_ENV === "development"
+        if (error instanceof RestError) {
+            const statusCode: number = error.statusCode
+            const message: string = error?.showMessageError || isDevelopment()? error.message : "Ocorreu um erro, tente novamente"
 
-        if (!res.headersSent) {
             res.status(statusCode).json({
-                message,
-                name,
-                stack: isDevelopment? stack : null,
-                origin
+                status: error.statusCode,
+                message: message
             })
 
-            return
+            res.end()
         } else {
-            loggerUtils.error(`Error after headersSent, error log: ${error}`)
+            let errorMessage: string = "Internal Server Error"
+
+            if (!!req?.requestUtils?.requestUuid) {
+                errorMessage += ` - REQUEST-UUID: ${req?.requestUtils?.requestUuid}`
+            }
+
+            res.status(500).json({
+                status: error.statusCode,
+                message: errorMessage
+            })
         }
     }
 }

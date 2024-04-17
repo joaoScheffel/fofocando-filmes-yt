@@ -1,21 +1,25 @@
-import {NextFunction, Request, Response} from "express"
+import {Request} from "express"
 import {TokenPayload} from "google-auth-library"
-import {IAuthQueryParams} from "../../domain/interfaces/google-api.interface";
-import {IUser} from "../../domain/interfaces/user.interface";
-import {GetTokenResponse} from "google-auth-library/build/src/auth/oauth2client";
-import {BadRequestError} from "../../domain/errors/bad-request-error";
-import {googleApiService, userRepository, userService} from "../../utils/factory";
-import {UnauthorizedError} from "../../domain/errors/unauthorized-error";
-import {ServerError} from "../../domain/errors/server-error";
-import {EnumRequestEvent} from "../../domain/enums/request/request-event.enum";
-import {EnumUserPermission} from "../../domain/enums/user-permission.enum";
+import {IAuthQueryParams} from "../../domain/interfaces/google-api.interface"
+import {IUser} from "../../domain/interfaces/user.interface"
+import {GetTokenResponse} from "google-auth-library/build/src/auth/oauth2client"
+import {BadRequestError} from "../../domain/errors/bad-request-error"
+import {UnauthorizedError} from "../../domain/errors/unauthorized-error"
+import {ServerError} from "../../domain/errors/server-error"
+import {EnumRequestEvent} from "../../domain/enums/request/request-event.enum"
+import {EnumUserPermission} from "../../domain/enums/user-permission.enum"
+import {ForbiddenError} from "../../domain/errors/forbidden-error"
+import {authTokenRepository, googleApiService, userRepository, userService, whitelistService} from "../../factory";
+import {RestError} from "../../domain/errors/rest-error";
+import {IAuthToken} from "../../domain/interfaces/auth-token.interface";
 
 export default class AuthService {
     async validateGoogleAuthRedirect(req: Request): Promise<{user: IUser, accessToken: string}> {
         const redirectQuery: IAuthQueryParams = req.query
 
         if (!redirectQuery.authuser || !redirectQuery.scope || !redirectQuery.code || !redirectQuery.prompt) {
-            throw new BadRequestError("Google auth redirect query invalid!")
+            throw new BadRequestError("AuthService.validateGoogleAuthRedirect",
+                "Google auth redirect query invalid!", false, redirectQuery)
         }
 
         const tokenResponse: GetTokenResponse = await googleApiService.verifyCode(redirectQuery.code)
@@ -23,73 +27,75 @@ export default class AuthService {
         const accessToken: string = tokenResponse?.tokens?.id_token
 
         if (!accessToken) {
-            throw new UnauthorizedError("User access token not found!")
+            throw new BadRequestError("AuthService.validateGoogleAuthRedirect at !accessToken",
+                "Google access token not found at REDIRECT AUTH!", false, tokenResponse)
         }
 
         const userPayload: TokenPayload = await googleApiService.getPayloadFromAuthToken(accessToken)
 
         if (!userPayload?.email) {
-            throw new UnauthorizedError("User not found")
+            throw new BadRequestError("AuthService.validateGoogleAuthRedirect at !userPayload?.email",
+                "User payload email not found at REDIRECT AUTH!", false, userPayload)
         }
 
-        const {user, isNewUser} = await userService.createUserByPayload(userPayload)
+        const {user, isNewUser} = await userService.createOrFindUser(userPayload)
 
         if (!user.userUuid) {
-            throw new ServerError("AuthService.validateGoogleAuthRedirect at !user.userUuid")
+            throw new ServerError("AuthService.validateGoogleAuthRedirect at !user.userUuid",
+                `Invalid createOrFindUser result user, user: ${user}\n\npayload: ${userPayload}`)
         }
+
+        const authToken: IAuthToken = {
+            ...tokenResponse?.tokens,
+            userUuid: user?.userUuid
+        }
+
+        await authTokenRepository.upsertAuthToken(authToken)
 
         if (isNewUser) {
-            req["requestUtils"].event = EnumRequestEvent.REGISTER_USER
+            req.requestUtils.event = EnumRequestEvent.REGISTER_USER
         }
-
 
         return {user, accessToken}
     }
 
-    async validatePublicView(req: Request): Promise<void> {
-        try {
-            await this.getUserByRequest(req)
-        } catch (e) {
-            if (e !instanceof UnauthorizedError) {
-                throw new ServerError(`AuthService.validateSiteAccess err is not UnauthorizedError`)
-            }
-        }
-    }
-
-    async validateUserAuth(req: Request, permissionsToVerify: EnumUserPermission[]): Promise<void> {
-        const user: IUser = await this.getUserByRequest(req)
+    async validateUserPermission(req: Request, permissionsToVerify: EnumUserPermission[]): Promise<void> {
+        const user: IUser = await this.validateAuthenticatedRequest(req)
 
         this.validateDynamicPermission(user, permissionsToVerify)
     }
 
-    // ver para trocar o tipo de permissao usando a whitelist, qualquer usuario com mais de uma permissao poderia trocar e acessar os recursos
+    async validateAuthenticatedRequest(req: Request): Promise<IUser> {
+        const bearerToken: string = req?.requestUtils?.authToken
 
-    private async getUserByRequest(req: Request): Promise<IUser> {
-        const authToken: string = req["requestUtils"]?.authToken
+        if (!bearerToken) throw new BadRequestError("AuthService.validateAuthorizedUser at !bearerToken",
+            "Authorization Token not found")
 
-        if (!authToken) throw new UnauthorizedError("Authorization Token not found")
+        const authToken = await authTokenRepository.findOneByBearerToken(bearerToken)
 
-        const payload: TokenPayload = await googleApiService.getPayloadFromAuthToken(authToken)
+        if (!authToken?.userUuid) throw new UnauthorizedError("AuthService.validateAuthorizedUser at !bearerToken",
+            "Authorization Token not found in auth tokens collection")
 
-        if (!payload || !payload?.sub) {
-            throw new UnauthorizedError("User payload not found")
-        }
+        await googleApiService.verifyIdToken(bearerToken)
 
-        const user: IUser = await userRepository.findOneBySub(payload?.sub)
+        const user: IUser = await userRepository.findOneByUserUuid(authToken.userUuid)
 
-        if (!user) {
-            throw new UnauthorizedError("User not found")
-        }
+        if (!user?.email) throw new UnauthorizedError("AuthService.validateAuthorizedUser at !user?.email",
+            "Usuário não encontrado, realize login novamente", true)
 
-        req["requestUtils"]?.setUserUuidRequest(user.userUuid)
+        if (user?.whitelist?.isBanned) throw new ForbiddenError('AuthService.validateAuthorizedUser at isBanned',
+            "Email informado está banido, cadastre-se novamente", true)
+
+        req.requestUtils.setUserUuidRequest(user.userUuid)
 
         return user
     }
 
     private validateDynamicPermission(user: IUser, permissionsToVerify: EnumUserPermission[]) {
         for (const permissionToVerify of permissionsToVerify) {
-            if (!user.whiteListPermissions.includes(permissionToVerify)) {
-                throw new UnauthorizedError("Invalid user permission.")
+            if (!user?.whitelist?.allowedPermissions.includes(permissionToVerify)) {
+                throw new UnauthorizedError("AuthService.validateDynamicPermission",
+                    "Permissão para acessar recurso inválida", true)
             }
         }
     }

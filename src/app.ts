@@ -3,10 +3,10 @@ import express, {Express} from "express"
 import morgan from "morgan"
 import loggerUtils from "./utils/logger.utils"
 import Routes from "./routes"
-import {RequestErrorMiddleware} from "./infrastructure/middlewares/request-error.middleware"
-import {requestLogMiddleware} from "./infrastructure/middlewares/request-log.middleware"
 import {DbConfig} from "./infrastructure/database"
 import Config from "./config/config"
+import {RequestErrorMiddleware} from "./infrastructure/middlewares/request/request-error.middleware"
+import {requestLogMiddleware} from "./infrastructure/middlewares/request/request-log.middleware"
 
 class App {
     private _express: Express

@@ -1,32 +1,39 @@
 import {TokenPayload} from "google-auth-library"
 import {v4 as uuidV4} from "uuid"
-import {IUser} from "../../domain/interfaces/user.interface";
-import {userRepository} from "../../utils/factory";
-import {EnumUserPermission} from "../../domain/enums/user-permission.enum";
+import {IUser} from "../../domain/interfaces/user.interface"
+import {EnumUserPermission} from "../../domain/enums/user-permission.enum"
+import {Request} from "express"
+import {IWhitelist} from "../../domain/interfaces/whitelist.interface"
+import {userRepository, whitelistService} from "../../factory";
+import {ForbiddenError} from "../../domain/errors/forbidden-error";
 
 export default class UserService {
-    async createUserByPayload(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
+    async createOrFindUser(payload: TokenPayload): Promise<{user: IUser, isNewUser: boolean}> {
         const email = payload.email
+
+        if (await whitelistService.isBannedEmail(email)) {
+            throw new ForbiddenError("UserService.createOrFindUser",
+                'Email informado está banido, cadastre-se novamente', true)
+        }
 
         let user: IUser = await userRepository.findOneByEmail(email)
         let isNewUser: boolean = false
 
         if (!user) {
-            let {userPermission, whiteListPermissions} = await this.createUserPermissions(email)
-
-            if (payload.email == "joaololluc4s@gmail.com") {
-                userPermission = EnumUserPermission.ADMIN
-            }
+            const whitelist: IWhitelist = await whitelistService.getWhitelistByEmail(email)
 
             const userConfig: IUser = {
                 userUuid: uuidV4(),
                 username: payload?.name,
                 googleSub: payload?.sub,
                 email: payload?.email,
-                userPermission: userPermission,
+                currentPermission: whitelist?.defaultPermission || EnumUserPermission.DEFAULT,
                 photoUrl: payload?.picture,
                 lastActivity: new Date(),
-                whiteListPermissions: whiteListPermissions
+            }
+
+            if (!!whitelist) {
+                userConfig.whitelist = whitelist
             }
 
             user = await userRepository.createNewUser(userConfig)
@@ -36,21 +43,12 @@ export default class UserService {
         return {user, isNewUser}
     }
 
-    async createUserPermissions(email: string) {
-        let userPermission: EnumUserPermission = EnumUserPermission.DEFAULT
-        let whiteListPermissions: EnumUserPermission[] = [userPermission]
+    async updateUser(req: Request) {
+        const { userUuid, username, randomUsername } = req.body
+        const files = req.files
 
-        if (email == "joaololluc4s@gmail.com" || email == "nafmanosso@gmail.com") {
-            userPermission = EnumUserPermission.ADMIN
-            whiteListPermissions.push(EnumUserPermission.ADMIN, EnumUserPermission.DEFAULT)
-
-        } else if (await whiteList) {
-
+        if (files?.files) {
+            console.log('a')
         }
-
-
-        return {userPermission, whiteListPermissions}
     }
-
-    private createWhitelist
 }

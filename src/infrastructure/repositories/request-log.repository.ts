@@ -1,10 +1,10 @@
 import {model, Schema} from "mongoose"
-import {IRequestLog} from "../../domain/interfaces/request-log.interface";
-import {EnumRequestEvent} from "../../domain/enums/request/request-event.enum";
-import {EnumRequestEndpoint} from "../../domain/enums/request/request-endpoint.enum";
-import {EnumRequestMethod} from "../../domain/enums/request/request-method.enum";
-import {ServerError} from "../../domain/errors/server-error";
-import {BadRequestError} from "../../domain/errors/bad-request-error";
+import {IRequestLog} from "../../domain/interfaces/request-log.interface"
+import {EnumRequestEvent} from "../../domain/enums/request/request-event.enum"
+import {EnumRequestEndpoint} from "../../domain/enums/request/request-endpoint.enum"
+import {EnumRequestMethod} from "../../domain/enums/request/request-method.enum"
+import {ServerError} from "../../domain/errors/server-error"
+import {BadRequestError} from "../../domain/errors/bad-request-error"
 
 const requestLogSchema: Schema = new Schema<IRequestLog>({
     requestUuid: {
@@ -58,24 +58,26 @@ const requestLogSchema: Schema = new Schema<IRequestLog>({
     },
     isResponseError: {
         type: Boolean
-    }
+    },
+    userUuid: {
+        type: String
+    },
+    errorFromValidateErrors: {},
+    authToken: {}
 }, {timestamps: true})
 
 const requestLogCollection = model<IRequestLog>("requestLogCollection", requestLogSchema,  "requestLogs")
 
 export class RequestLogRepository {
-    async upsertRequestLog(config: IRequestLog): Promise<IRequestLog> {
+    async createRequestLog(config: IRequestLog): Promise<IRequestLog> {
         if (!config) {
-            throw new ServerError("RequestLogRepository.upsertRequestLog at !config")
+            throw new ServerError("RequestLogRepository.upsertRequestLog at !config", `Config not found at createRequestLog, config: ${config}`)
         }
 
         try {
-           return await requestLogCollection.findOneAndUpdate({requestUuid: config?.requestUuid},
-               {$set: config},
-               {upsert: true, new: true, runValidators: true}
-           )
+           return await requestLogCollection.create(config)
        } catch (e) {
-            throw new BadRequestError(`Error trying upsert requestLog document, error log ${e}`)
+            throw new BadRequestError("RequestLogRepository.createRequestLog at catch", "Error trying createRequestLog", false, e)
        }
     }
 }

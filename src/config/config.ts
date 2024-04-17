@@ -1,4 +1,5 @@
 import dotenv from "dotenv"
+import loggerUtils from "../utils/logger.utils"
 
 export default class Config {
     static NODE_ENV: string
@@ -23,13 +24,14 @@ export default class Config {
         const requiredVariables: string[] = [
             "PORT",
             "NODE_ENV",
-            "DATABASE_URL",
+            "MONGOOSE_URI",
             "GOOGLE_AUTH_ID",
             "GOOGLE_AUTH_SECRET"
         ]
 
         for (const variable of requiredVariables) {
             if (!this[variable]) {
+                loggerUtils.error(`Environment variable is not set: ${variable}`)
                 throw new Error(`Environment variable is not set: ${variable}`)
             }
         }
@@ -40,6 +42,7 @@ export default class Config {
 
         for (const numberVariable of numberVariables) {
             if (isNaN(this[numberVariable])) {
+                loggerUtils.error(`Environment variable must be a number: ${numberVariable}`)
                 throw new Error(`Environment variable must be a number: ${numberVariable}`)
             }
         }

@@ -22,6 +22,7 @@ export class DbConfig {
             loggerUtils.info("Successfully connected to mongoose database!")
         } catch (e) {
             loggerUtils.error(`Error trying to connect to mongoose database, error log: ${e}`)
+            throw e
         }
     }
 }
